@@ -64,8 +64,10 @@ public class CreationClient extends HttpServlet {
 
         if (dirty) {
             System.out.println("[Servlet] [CreationClient] POST /createClient --> Forwarding to " + jsp_createClient);
+            request.setAttribute("error", true);
             this.getServletContext().getRequestDispatcher(jsp_createClient).forward(request, response);
         } else {
+            request.setAttribute("error", false);
             System.out.println("[Servlet] [CreationClient] POST /createClient INFO : All OK, forwarding");
             System.out.println("[Servlet] [CreationClient] POST /createClient --> Forwarding to " + jsp_displayClient);
             this.getServletContext().getRequestDispatcher(jsp_displayClient).forward(request, response);

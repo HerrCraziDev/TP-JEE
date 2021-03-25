@@ -7,6 +7,7 @@
     --form-back: #f0f0f080;
     --text: #222;
     --primary: #00df77;
+    --primary-dark: #3e8d42;
 }
 
 html,body {
@@ -22,16 +23,35 @@ html {
     background-size: cover; */
 }
 
-html, main::before {
+html, .blur::before {
     background-color: var(--back);
     background: url("/static/resources/scotland_skye_fairy_glenn.png") 0 / cover fixed;
 }
 
 header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
     display: block;
     width: 100%;
-    background-color: var(--primary);
+    padding: .5rem 1.2rem;
+    background-color: var(--primary-dark);
     color: white;
+}
+
+header h1 {
+    text-align: left;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header .subtitle {
+    opacity: 0.7;
+    font-style: italic;
+    font-family: 'Ubuntu Condensed', 'Roboto', Arial, Helvetica, sans-serif;
+    font-size: .9rem;
 }
 
 h1 {
@@ -45,7 +65,7 @@ h1, label {
 main {
     width: 40%;
     max-width: 400px;
-    margin: auto;
+    margin: 1em;
     padding: 2rem;
     
     /* backdrop-filter: blur(5px); */
@@ -58,9 +78,23 @@ main *:first-child {
     margin-top: 0;
 }
 
-.info-success {
-    background-color: #479c47be;
+.info {
+    font-size: 1rem;
+    padding: .6em 1em;
     color: white;
+    border-left: solid 6px #26a2f5;
+    border-radius: 3px;
+    background: repeating-linear-gradient(-45deg, #289ae677 0px 5px, #238acf77 5px 10px);
+}
+
+.success {
+    background: repeating-linear-gradient(-45deg, #51b45177 0px 5px, #479c4777 5px 10px);
+    border-color: #52b852;
+}
+
+.error {
+    background: repeating-linear-gradient(-45deg, #d6464677 0px 5px, #be373777 5px 10px);
+    border-color: #e04a3c;
 }
 
 .blur {
@@ -85,6 +119,7 @@ main *:first-child {
     height: 100%;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
