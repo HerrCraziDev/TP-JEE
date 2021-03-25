@@ -1,0 +1,4 @@
+src/main/webapp/static/resources/**
+target
+target/**
+.vscode

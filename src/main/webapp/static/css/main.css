@@ -1,0 +1,124 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
+:root {
+    --back: #ddd;
+    --form-back: #f0f0f080;
+    --text: #222;
+    --primary: #00df77;
+}
+
+html,body {
+    margin: 0 0;
+    color: var(--text);
+    font-family: 'Roboto', 'Ubuntu Condensed', Arial, Helvetica, sans-serif;
+}
+
+html {
+    min-width: 100vw;
+    min-height: 100vh;
+    /* background-repeat: no-repeat;
+    background-size: cover; */
+}
+
+html, main::before {
+    background-color: var(--back);
+    background: url("/static/resources/scotland_skye_fairy_glenn.png") 0 / cover fixed;
+}
+
+header {
+    display: block;
+    width: 100%;
+    background-color: var(--primary);
+    color: white;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+h1, label {
+    font-family: 'Ubuntu Condensed', 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+main {
+    width: 40%;
+    max-width: 400px;
+    margin: auto;
+    padding: 2rem;
+    
+    /* backdrop-filter: blur(5px); */
+    background-color: var(--form-back);
+    border-left: solid 6px var(--primary);
+}
+
+.blur {
+    position: relative;
+    overflow: hidden;
+}
+
+.blur::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    right: -15px;
+    bottom: -15px;
+    z-index: -1;
+
+    filter: blur(15px);
+}
+
+.page-center {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+form #btn-submit {
+    display: block;
+    margin: 1em 0.5em;
+    padding: .5 em 2em;
+    font-size: 1rem;
+    font-weight: bold;
+
+    color: white;
+    background: linear-gradient(to left, rgb(46, 209, 128), rgb(50, 146, 202));
+
+    border-radius: 5px;
+    border: solid 1px var(--primary);
+    box-shadow: 0 0 10px #2224;
+
+    cursor: pointer;
+}
+
+form #btn-submit:hover {
+    box-shadow: 0 0 20px #2226;
+}
+
+form label {
+    margin-top: .7em;
+    margin-left: .3em;
+    font-size: .9rem;
+    font-weight: bold;
+}
+
+form input {
+    padding: .5em .2em;
+    background-color: #fff7;
+    border: solid 1px grey;
+    border-radius: 4px;
+}
+
