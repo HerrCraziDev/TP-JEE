@@ -11,7 +11,7 @@
 
     <body>
         <div class="page-center">
-            <main class="blur">
+            <main class="blur info-success">
                 <h2>Client créé</h2>
                 Client créé avec succès.
             </main>

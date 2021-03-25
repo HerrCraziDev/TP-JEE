@@ -36,7 +36,6 @@ header {
 
 h1 {
     text-align: center;
-    color: white;
 }
 
 h1, label {
@@ -51,7 +50,17 @@ main {
     
     /* backdrop-filter: blur(5px); */
     background-color: var(--form-back);
+    color: var(--text);
     border-left: solid 6px var(--primary);
+}
+
+main *:first-child {
+    margin-top: 0;
+}
+
+.info-success {
+    background-color: #479c47be;
+    color: white;
 }
 
 .blur {
@@ -90,22 +99,27 @@ form {
 form #btn-submit {
     display: block;
     margin: 1em 0.5em;
-    padding: .5 em 2em;
+    padding: .7em 2em;
     font-size: 1rem;
     font-weight: bold;
 
     color: white;
-    background: linear-gradient(to left, rgb(46, 209, 128), rgb(50, 146, 202));
+    background: linear-gradient(to right, #a252e4, #3292ca 50%, #2ed180 100%);
+    background-position: 100% center;
+    background-size: 200%;
 
     border-radius: 5px;
     border: solid 1px var(--primary);
     box-shadow: 0 0 10px #2224;
 
     cursor: pointer;
+    transition: all 300ms;
 }
 
 form #btn-submit:hover {
     box-shadow: 0 0 20px #2226;
+    background-position: 0% center;
+    border-color: #32b8ca;
 }
 
 form label {
