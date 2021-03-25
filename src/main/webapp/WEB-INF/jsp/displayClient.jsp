@@ -10,11 +10,14 @@
     </head>
 
     <body>
+        <c:import url="/static/html/top.html" charEncoding="UTF-8"/>
+
         <div class="page-center">
-            <main class="blur info-success">
+            <div class="blur info success">
                 <h2>Client créé</h2>
                 Client créé avec succès.
-            </main>
+                <a href='<c:url value="/createClient"></c:url>'' class="btn">Retour</a>
+            </div>
         </div>
     </body>
 

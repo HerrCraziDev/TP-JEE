@@ -87,6 +87,13 @@ main *:first-child {
     background: repeating-linear-gradient(-45deg, #289ae677 0px 5px, #238acf77 5px 10px);
 }
 
+.info :is(h1, h2, h3, h4, h5) {
+    margin-top: 0;
+    margin-bottom: .3em;
+    font-size: 1.3em;
+    font-weight: bolder;
+}
+
 .success {
     background: repeating-linear-gradient(-45deg, #51b45177 0px 5px, #479c4777 5px 10px);
     border-color: #52b852;

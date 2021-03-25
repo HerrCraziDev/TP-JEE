@@ -13,15 +13,17 @@ public class DisplayClient extends HttpServlet {
     public static final String TAR_GET = "/WEB-INF/jsp/displayClient.jsp";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("[Servlet] [DisplayClient] GET /displayClient --> Forwarding to " + TAR_GET);
-        this.getServletContext().getRequestDispatcher(TAR_GET).forward(req, res);
+        this.getServletContext().getRequestDispatcher(TAR_GET).forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+
         System.out.println("[Servlet] [DisplayClient] GET /displayClient --> Forwarding to " + TAR_GET);
-        this.getServletContext().getRequestDispatcher(TAR_GET).forward(req, res);
+        this.getServletContext().getRequestDispatcher(TAR_GET).forward(request, response);
     }
     //
 }

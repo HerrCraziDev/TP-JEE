@@ -15,15 +15,17 @@ public class CreationClient extends HttpServlet {
     public static final String jsp_displayClient = "/WEB-INF/jsp/displayClient.jsp";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException,IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         System.out.println("[Servlet] [CreationClient] GET /createClient --> Forwarding to " + jsp_createClient);
-        this.getServletContext().getRequestDispatcher(jsp_createClient).forward(req, res);
+        this.getServletContext().getRequestDispatcher(jsp_createClient).forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
         String name, surname, city, postcode, address, mail, phone, passwd, passwd_confirm;
         Boolean dirty = false;
+
+        request.setCharacterEncoding("UTF-8");
 
         if ( (name = request.getParameter("name")).isEmpty() ) {
             dirty = true;
@@ -57,9 +59,9 @@ public class CreationClient extends HttpServlet {
             dirty = true;
             System.out.println("[Servlet] [CreationClient] POST /createClient WARN : Missing parameter : passwd");
         }
-        if ( (passwd_confirm = request.getParameter("passwd-confirm")).isEmpty() ) {
+        if ( (passwd_confirm = request.getParameter("passwdconfirm")).isEmpty() ) {
             dirty = true;
-            System.out.println("[Servlet] [CreationClient] POST /createClient WARN : Missing parameter : passwd-confirm");
+            System.out.println("[Servlet] [CreationClient] POST /createClient WARN : Missing parameter : passwdconfirm");
         }
 
         if (dirty) {
