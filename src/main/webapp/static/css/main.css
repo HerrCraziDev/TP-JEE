@@ -17,8 +17,8 @@ html,body {
 }
 
 html {
-    min-width: 100vw;
-    min-height: 100vh;
+    /* min-width: 100vw;
+    min-height: 100vh; */
     /* background-repeat: no-repeat;
     background-size: cover; */
 }
@@ -81,6 +81,7 @@ main *:first-child {
 .info {
     font-size: 1rem;
     padding: .6em 1em;
+    /* margin: .6em 2em; */
     color: white;
     border-left: solid 6px #26a2f5;
     border-radius: 3px;
@@ -131,6 +132,11 @@ main *:first-child {
     align-items: center;
 }
 
+.content {
+    padding-top: 4rem;
+    min-height: calc(100vh - 4rem);
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -165,8 +171,11 @@ form #btn-submit:hover {
 }
 
 form label {
-    margin-top: .7em;
-    margin-left: .3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: baseline;
+    margin: .7em .3rem 0 .2rem;
     font-size: .9rem;
     font-weight: bold;
 }
@@ -178,3 +187,15 @@ form input {
     border-radius: 4px;
 }
 
+form .required {
+    color: #e04a3c;
+}
+
+form .form-error {
+    flex-grow: 2;
+    text-align: right;
+    color: #be1000;
+    font-size: .9em;
+    font-style: italic;
+    font-weight: normal;
+}

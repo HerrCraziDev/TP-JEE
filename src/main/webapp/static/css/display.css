@@ -1,0 +1,9 @@
+
+
+.client-info {
+    color: #444;
+}
+
+.client-info b {
+    color: var(--text);
+}
