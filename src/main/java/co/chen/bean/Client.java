@@ -2,6 +2,9 @@ package co.chen.bean;
 
 import java.util.Date;
 
+import co.chen.utils.ClientState;
+
+
 public class Client {
     /* Fields */
     private int clientId;
@@ -13,7 +16,7 @@ public class Client {
     private String phone;
     private String mail;
     private String passwd;
-    private String state;
+    private ClientState state;
     private Date creationDate;
     
     public Client() {
@@ -74,16 +77,18 @@ public class Client {
     public void setPasswd(String passwd) {
         this.passwd = passwd;
     }
-    public String getState() {
+    public ClientState getState() {
         return state;
     }
-    public void setState(String state) {
+    public void setState(ClientState state) {
         this.state = state;
     }
     public Date getCreationDate() {
         return creationDate;
     }
-    // There is no setter for the creationDate field - it can only be created once
+    public void setCreationDate(Date date) {
+        this.creationDate = date;
+    }
 
     @Override
     public String toString() {
