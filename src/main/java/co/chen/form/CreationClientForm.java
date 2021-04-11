@@ -19,7 +19,7 @@ public class CreationClientForm {
     private static final String FIELD_phone     = "phone";
     private static final String FIELD_mail      = "mail";
     private static final String FIELD_passwd    = "passwd";
-    private static final String FIELD_passwd_confirm = "passwd_confirm";
+    private static final String FIELD_passwd_confirm = "passwdconfirm";
 
     // private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -102,16 +102,23 @@ public class CreationClientForm {
 
         /* Validate field <passwd> and <passwd_confirm> */
         try {
-            validatePassword(passwd, passwd_confirm);
+            validatePasswordConfirm(passwd, passwd_confirm);
+        } catch (Exception e) {
+            errors.put(FIELD_passwd_confirm, e.getMessage());
+        }
+        try {
+            validatePassword(passwd);
         } catch ( Exception e ) {
             passwd = "";
             errors.put(FIELD_passwd, e.getMessage());
         }
         client.setPasswd(passwd);
 
+
         return client;
     }
 
+    /* Validators */
     private void validateName( String name ) throws Exception {
         if ( name == null ) {
             throw new Exception("Pas de nom fourni");
@@ -163,24 +170,47 @@ public class CreationClientForm {
             throw new Exception("L'adresse mail n'est pas valide");
         }
     }
-    private void validatePassword( String passwd, String passwd_confirm ) throws Exception {
+    private void validatePassword( String passwd ) throws Exception {
         if ( passwd == null ) {
             throw new Exception("Un mot de passe doit être précisé");
         } else if ( passwd.length() < 8  || passwd.length() > 32 ) {
             throw new Exception("Le mot de passe doit faire entre 8 et 32 caractères");
-        } else if ( !passwd.matches("[0-9]+") || !passwd.matches("[^\\d\\w ]+") ) {
-            throw new Exception("Le mot de passe doit contenir au moins un chiffre et un caractère spécial");
-        } else if ( passwd_confirm == null ) {
-            throw new Exception("Le mot de passe doit être confirmé");
+        } else if ( !passwd.matches(".*\\d.*") ) {
+            throw new Exception("Le mot de passe doit contenir au moins un chiffre");
+        } else if ( !passwd.matches(".*[^A-Za-z\\d ].*") ) {
+            throw new Exception("Le mot de passe doit contenir au moins un caractère spécial");
+        }
+    }
+
+    private void validatePasswordConfirm( String passwd, String passwd_confirm ) throws Exception {
+        if ( passwd_confirm == null ) {
+            throw new Exception("Veuillez confirmer le mot de passe");
+        } else if ( !passwd.equals(passwd_confirm) ) {
+            System.out.println("'" + passwd + "' '" + passwd_confirm + "'");
+            throw new Exception("Les mots de passe de correspondent pas");
         }
     }
     
     private static String getFieldValue( HttpServletRequest request, String fieldName ) {
         String val = request.getParameter(fieldName);
-        if ( val.trim().length() == 0 ) {
+        System.out.println(fieldName + "= " + val);
+        if ( val == null || val.trim().length() == 0 ) {
             return null;
         } else {
             return val;
         }
+    }
+
+    /* Getters & Setters */
+    public Map<String, String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(Map<String, String> errors) {
+        this.errors = errors;
+    }
+
+    public boolean hasErrors() {
+        return !errors.isEmpty();
     }
 }
