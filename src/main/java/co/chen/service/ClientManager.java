@@ -92,7 +92,7 @@ public class ClientManager {
     }
 
     public List<Client> fetchClients() {
-        String query = "SELECT * FROM clients";
+        String query = "SELECT * FROM client";
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet result = null;
