@@ -16,13 +16,6 @@ html,body {
     font-family: 'Roboto', 'Ubuntu Condensed', Arial, Helvetica, sans-serif;
 }
 
-html {
-    /* min-width: 100vw;
-    min-height: 100vh; */
-    /* background-repeat: no-repeat;
-    background-size: cover; */
-}
-
 html, .blur::before {
     background-color: var(--back);
     background: url("/static/resources/scotland_skye_fairy_glenn.png") 0 / cover fixed;
