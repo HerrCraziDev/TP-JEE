@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Patate carrée</title>
+    <title>Création compte client</title>
     <link rel="stylesheet" href="/static/css/main.css">
 </head>
 <body>

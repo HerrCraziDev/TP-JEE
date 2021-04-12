@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Patate carrée</title>
+    <title>Admin - Liste clientèle</title>
     <link rel="stylesheet" href="/static/css/main.css">
     <link rel="stylesheet" href="/static/css/admin.css">
 </head>
