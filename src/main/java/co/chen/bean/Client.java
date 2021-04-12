@@ -18,10 +18,28 @@ public class Client {
     private String passwd;
     private ClientState state;
     private Date creationDate;
+
     
+    /* Constructors */
     public Client() {
     }
     
+    public Client(int clientId, String name, String surname, String city, String postcode, String address, String phone,
+            String mail, String passwd, ClientState state, Date creationDate) {
+        this.clientId = clientId;
+        this.name = name;
+        this.surname = surname;
+        this.city = city;
+        this.postcode = postcode;
+        this.address = address;
+        this.phone = phone;
+        this.mail = mail;
+        this.passwd = passwd;
+        this.state = state;
+        this.creationDate = creationDate;
+    }
+
+
     /* Getters & Setters */
     public int getClientId() {
         return clientId;

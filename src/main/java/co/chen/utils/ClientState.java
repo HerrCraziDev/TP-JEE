@@ -1,10 +1,11 @@
 package co.chen.utils;
 
 public enum ClientState {
-    CREATED("CREATED"),
-    PENDING("PENDING"),
-    CREATING("CREATING"),
-    DELETED("DELETED")
+    /* ======[]  >>>---->             // */
+    CREATED("A"),   // Active
+    PENDING("P"),   // Pending creation
+    DELETED("D"),   // Deleted/desactivated
+    STANDBY("S"),   // Unused
     ;
 
     private final String code;
@@ -16,5 +17,14 @@ public enum ClientState {
     @Override
     public String toString() {
         return this.code;
+    }
+
+    public static ClientState fromString(String text) {
+        for (ClientState s : ClientState.values()) {
+            if (s.code.equalsIgnoreCase(text)) {
+                return s;
+            }
+        }
+        return null;
     }
 }
