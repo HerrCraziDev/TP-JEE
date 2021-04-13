@@ -22,4 +22,8 @@
       <include-prelude>/WEB-INF/jsp/taglibs.jsp</include-prelude>
     </jsp-property-group>
   </jsp-config>
+
+  <session-config>
+    <session-timeout>1</session-timeout>
+  </session-config>
 </web-app>

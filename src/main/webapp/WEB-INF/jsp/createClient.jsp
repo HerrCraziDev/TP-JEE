@@ -16,7 +16,7 @@
                 Erreur : Formulaire incomplet
             </div>
         </c:if>
-        <main class="blur">        
+        <main class="blur form">        
             <h1>Création de client</h1>
             
             <form action="createClient" method="post">

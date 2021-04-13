@@ -15,8 +15,12 @@
 
     <div class="content">
         <main class="blur page list">
-            <h2>Liste clients</h2>
-
+            <div class="pagehead">
+                <a href='<c:url value="/adminLogin"></c:url>'' class="btn">« Retour</a>
+                <h2>Liste clients</h2>
+                <span id="logged">Connecté en tant que <b>${sessionScope.admin.surname} ${sessionScope.admin.name}</b> (<a href='<c:url value="/adminLogin"></c:url>'>déconnection</a>)</span>
+            </div>
+                            
             <table>
                 <thead>
                     <th>ID</th>
