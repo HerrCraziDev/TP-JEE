@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import co.chen.bean.Client;
+import co.chen.dao.ClientDAO;
+import co.chen.dao.factory.DAOFactory;
 import co.chen.form.CreationClientForm;
 import co.chen.service.ClientManager; 
 
@@ -15,8 +17,17 @@ import co.chen.service.ClientManager;
 public class CreationClient extends HttpServlet {
 
     private static final long serialVersionUID = -8627270182927337176L;
+    private ClientDAO clientDAO;
     public static final String jsp_createClient = "/WEB-INF/jsp/createClient.jsp";
     public static final String jsp_displayClient = "/WEB-INF/jsp/displayClient.jsp";
+
+
+    @Override
+    public void init() throws ServletException {
+        DAOFactory daoFactory = (DAOFactory) getServletContext().getAttribute("daoFactory");
+        this.clientDAO = daoFactory.getClientDAO();
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
@@ -44,7 +55,7 @@ public class CreationClient extends HttpServlet {
         } else {
             // There is no error, safe to continue
             ClientManager cm = new ClientManager();
-            cm.createClient(client);
+            cm.createClient(client, clientDAO);
             
             request.setAttribute("error", false);
             target = jsp_displayClient;

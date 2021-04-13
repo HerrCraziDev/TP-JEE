@@ -207,7 +207,7 @@ form .form-error {
 
 table {
     width: 100%;
-    outline: solid 3px #22222281;
+    /* outline: solid 1px #22222281; */
     border-collapse: collapse;
 }
 
