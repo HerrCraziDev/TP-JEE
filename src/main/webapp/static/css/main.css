@@ -64,9 +64,12 @@ main {
     background-color: var(--form-back);
     color: var(--text);
     border-left: solid 6px var(--primary);
+    border-radius: 4px;
 }
 
-main *:first-child {
+main *:first-child,
+:is(h1, h2, h3, h4, h5):first-child, 
+:is(h1, h2, h3, h4, h5):first-of-type {
     margin-top: 0;
 }
 
@@ -95,6 +98,11 @@ main *:first-child {
 .error {
     background: repeating-linear-gradient(-45deg, #d6464677 0px 5px, #be373777 5px 10px);
     border-color: #e04a3c;
+}
+
+.spacer {
+    margin: 1em auto;
+    flex-grow: 1;
 }
 
 .blur {
@@ -141,12 +149,37 @@ main *:first-child {
     margin-top: 6rem;
 }
 
+.pagehead {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 1em;
+    padding: 0.5rem 1rem;
+}
+
+.pagehead * {
+    flex: 1 1 0;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    /* flex-grow: 1; */
+}
+
+.pagehead *:first-child, .pagehead *:last-child {
+    text-align: inherit;
+}
+
+.form {
+    max-width: 400px;
+}
+
 form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: stretch;
-    max-width: 400px;
 }
 
 form #btn-submit {

@@ -3,3 +3,19 @@
 .list {
     width: 80%;
 }
+
+#logged {
+    /* position: absolute;
+    top: 2rem;
+    right: 2.5rem; */
+
+    text-align: right;
+
+    font-size: 0.9em;
+    font-style: italic;
+    color: #444;
+}
+
+#logged b {
+    color: var(--text);
+}
