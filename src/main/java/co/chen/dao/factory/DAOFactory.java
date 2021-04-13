@@ -5,6 +5,8 @@ import java.sql.*;
 import com.jolbox.bonecp.BoneCP;
 import com.jolbox.bonecp.BoneCPConfig;
 
+import co.chen.dao.AdminDAO;
+import co.chen.dao.AdminDAOImpl;
 import co.chen.dao.ClientDAO;
 import co.chen.dao.ClientDAOImpl;
 import co.chen.dao.DAOConfigurationException;
@@ -69,5 +71,9 @@ public class DAOFactory {
 
     public ClientDAO getClientDAO() {
         return new ClientDAOImpl(this);
+    }
+
+    public AdminDAO getAdminDAO() {
+        return new AdminDAOImpl(this);
     }
 }
