@@ -21,6 +21,7 @@
             <main class="blur">
                 <a href='<c:url value="/createClient"></c:url>'' class="btn">« Retour</a>
                 <h2><c:out value="${param.surname}" /> <c:out value="${param.name}"/></h2>
+                <img class="client-pfp" src="<c:url value='/images/${client.clientId}.png' />" width="100" height="100"/>
                 <div class="client-info">Ville : <b><c:out value="${param.city}"/></b></div>
                 <div class="client-info">Code postal : <b><c:out value="${param.postcode}"/></b></div>
                 <div class="client-info">Addresse : <b><c:out value="${param.address}"/></b></div>

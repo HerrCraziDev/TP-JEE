@@ -1,11 +1,21 @@
 package co.chen.form;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
 import co.chen.bean.Client;
+import eu.medsea.mimeutil.MimeUtil;
 
 
 public class CreationClientForm {
@@ -20,6 +30,9 @@ public class CreationClientForm {
     private static final String FIELD_mail      = "mail";
     private static final String FIELD_passwd    = "passwd";
     private static final String FIELD_passwd_confirm = "passwdconfirm";
+    private static final String FIELD_image = "image";
+
+    private Boolean shouldCreateFile = false;
 
     // private String result;
     private Map<String, String> errors = new HashMap<String, String>();
@@ -114,6 +127,13 @@ public class CreationClientForm {
         }
         client.setPasswd(passwd);
 
+        /* Validate user uploaded image */
+        try {
+            validateImage(request);
+        } catch (Exception e) {
+            System.err.println(e);
+            errors.put(FIELD_image, e.getMessage());
+        }
 
         return client;
     }
@@ -190,15 +210,81 @@ public class CreationClientForm {
             throw new Exception("Les mots de passe de correspondent pas");
         }
     }
-    
+
+    private void validateImage( HttpServletRequest request) throws Exception {
+
+        String filename = null;
+        BufferedInputStream data = null;
+
+        try {
+            Part part = request.getPart( FIELD_image );
+            filename = getFilename( part );
+
+            if ( filename != null && !filename.isEmpty() ) {
+                /* Récupération du contenu du fichier */
+                data = new BufferedInputStream( part.getInputStream() );
+
+                /* Extraction du type MIME du fichier depuis l'InputStream */
+                MimeUtil.registerMimeDetector( "eu.medsea.mimeutil.detector.MagicMimeMimeDetector" );
+                Collection<?> mimeTypes = MimeUtil.getMimeTypes( data );
+                
+                if ( !mimeTypes.toString().startsWith("image/png") ) {
+                    throw new Exception( "Le fichier envoyé doit être une image PNG" );
+                }
+
+                this.shouldCreateFile = true;
+            }
+
+        } catch (IllegalStateException e) {
+            throw new Exception("Le fichier ne doit pas dépasser 1Mo");
+        } catch (IOException e) {
+            throw new Exception("Erreur de configuration du serveur");
+        } catch (ServletException e) {
+            throw new Exception("Type de requête non supporté");
+        }
+    }
+
     private static String getFieldValue( HttpServletRequest request, String fieldName ) {
-        String val = request.getParameter(fieldName);
-        System.out.println(fieldName + "= " + val);
+        String val = null;
+
+        try {
+            val = getValue(request.getPart(fieldName));
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            System.out.println(fieldName + "= " + val);
+        }
+
         if ( val == null || val.trim().length() == 0 ) {
             return null;
         } else {
             return val;
         }
+    }
+
+    private static String getValue(Part part) throws IOException {
+        BufferedReader reader = new BufferedReader( new InputStreamReader( part.getInputStream(), "UTF-8"));
+        StringBuilder value = new StringBuilder();
+
+        char[] buffer = new char[1024];
+        int length = 0;
+
+        while ( (length = reader.read(buffer)) > 0 ) {
+            value.append(buffer, 0, length);
+            System.out.println("Read: " + buffer);
+        }
+
+        return value.toString();
+    }
+
+    private static String getFilename(Part part) {
+        for ( String contentDisposition : part.getHeader("content-disposition").split(";") ) {
+            if ( contentDisposition.trim().startsWith("filename") ) {
+                return contentDisposition.substring(contentDisposition.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+
+        return null;
     }
 
     /* Getters & Setters */
@@ -212,5 +298,17 @@ public class CreationClientForm {
 
     public boolean hasErrors() {
         return !errors.isEmpty();
+    }
+
+    public Boolean getShouldCreateFile() {
+        return shouldCreateFile;
+    }
+
+    public void setShouldCreateFile(Boolean shouldCreateFile) {
+        this.shouldCreateFile = shouldCreateFile;
+    }
+
+    public Boolean shouldCreateFile() {
+        return this.getShouldCreateFile();
     }
 }

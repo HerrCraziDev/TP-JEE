@@ -1,8 +1,13 @@
 package co.chen.servlet;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
@@ -14,6 +19,7 @@ import co.chen.service.ClientManager;
 
 
 @WebServlet("/createClient")
+@MultipartConfig(location = "/home/herrcrazi/dev/uploads", fileSizeThreshold = 0, maxFileSize = 1024 * 1024 * 8, maxRequestSize = 1024* 1024 * 8)
 public class CreationClient extends HttpServlet {
 
     private static final long serialVersionUID = -8627270182927337176L;
@@ -57,6 +63,9 @@ public class CreationClient extends HttpServlet {
             ClientManager cm = new ClientManager();
             cm.createClient(client, clientDAO);
             
+            String path = "/home/herrcrazi/dev/uploads/";
+            if ( form.shouldCreateFile() ) saveFile(request, "image", path, client.getClientId() + ".png");
+
             request.setAttribute("error", false);
             target = jsp_displayClient;
             System.out.println("[Servlet] [CreationClient] POST /createClient INFO : All OK, forwarding");
@@ -67,5 +76,37 @@ public class CreationClient extends HttpServlet {
         System.out.println("[Servlet] [CreationClient] POST /createClient --> Forwarding to " + target);
         this.getServletContext().getRequestDispatcher(target).forward(request, response);
     }
-    //
+
+    private void saveFile( HttpServletRequest request, String field, String path, String filename ) throws IOException {
+        int BUFFER_SIZE = 1024*1024*8;
+
+        BufferedInputStream in = null;
+        BufferedOutputStream out = null;
+
+        try {
+            Part part = request.getPart( field );
+            
+            in = new BufferedInputStream( part.getInputStream(), BUFFER_SIZE );
+            out = new BufferedOutputStream( new FileOutputStream( new File( path + filename ) ),BUFFER_SIZE );
+            
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int length;
+            while ( ( length = in.read( buffer ) ) > 0 ) {
+                out.write( buffer, 0, length );
+            }
+        } catch( Exception e ) {
+            System.err.println("[Servlet] [CreationClient] POST Error : " + e);
+        } finally {
+            try {
+                out.close();
+            } catch ( IOException e ) {
+                System.out.println("Error :"+e);
+            }
+            try {
+                in.close();
+            } catch ( IOException e ) {
+                System.out.println("Error :"+e);
+            }
+        }
+    }
 }
